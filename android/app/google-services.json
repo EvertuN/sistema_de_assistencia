@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "449340608258",
+    "project_id": "penumbraassistencia",
+    "storage_bucket": "penumbraassistencia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449340608258:android:231e31c49bb7123c67bc1b",
+        "android_client_info": {
+          "package_name": "com.example.sistema_de_assistencia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7vA_kSW4DNm8IHpDYQpc69Hf0ibNfU7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
