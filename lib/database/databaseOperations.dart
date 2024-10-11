@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 class DatabaseOperationFirebase {
   final db = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> createNewClient(
       String nome,
@@ -22,13 +23,13 @@ class DatabaseOperationFirebase {
     }
 
     final user = <String, dynamic>{
-      "nome": "$nome",
-      "sexo": "$sexo",
+      "nome": nome,
+      "sexo": sexo,
       "dataNascimento":
           Timestamp.fromDate(DateFormat('dd/MM/yyyy').parse(dataNascimento)),
-      "CPF": "$CPF",
-      "email": "$email",
-      "telefone": "$telefone",
+      "CPF": CPF,
+      "email": email,
+      "telefone": telefone,
       "endereco": {
         "rua": rua,
         "bairro": bairro,
@@ -37,7 +38,6 @@ class DatabaseOperationFirebase {
       },
     };
 
-// Add a new document with a generated ID
     await db.collection("users").add(user).then((DocumentReference doc) =>
         print('DocumentSnapshot added with ID: ${doc.id}'));
   }
@@ -55,4 +55,37 @@ class DatabaseOperationFirebase {
     });
     return nomes;
   }
+
+  Future<List<String>> getClientNames() async {
+    try {
+      QuerySnapshot snapshot = await _firestore.collection('users').get();
+      return snapshot.docs.map((doc) => doc['nome'] as String).toList();
+    } catch (e) {
+      print('Erro ao buscar clientes: $e');
+      return [];
+    }
+  }
+
+  Future<void> createServiceOrder(
+      String client,
+      String device,
+      String description,
+      List<String> parts,
+      List<String> services,
+      String employee,
+      String price
+      ) async {
+    final serviceOrder = <String, dynamic>{
+      "client": client,
+      "device": device,
+      "description": description,
+      "parts": parts,
+      "services": services,
+      "employee": employee,
+      "price": price,
+    };
+    await db.collection("service_orders").add(serviceOrder).then((DocumentReference doc) =>
+        print('DocumentSnapshot added with ID: ${doc.id}'));
+  }
+
 }
